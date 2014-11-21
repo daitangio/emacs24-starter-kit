@@ -1,0 +1,37 @@
+* 2015 Absolute Emacs config called /Calipso/
+#+name: jj-config
+#+begin_src emacs-lisp
+(message "giorgig.org loading...")
+(server-start)
+(cua-mode)
+(global-set-key [f1] 'query-replace-regexp)
+(starter-kit-load "js")
+(starter-kit-load "org")
+(message "giorgig.org DONE")
+#+end_src
+
+Review:
+(defmacro project-specifics (name &rest body)
+  (declare (indent 1))
+  `(progn
+     (add-hook 'find-file-hook
+               (lambda ()
+                 (when (string-match-p ,name (buffer-file-name))
+                   ,@body)))
+     (add-hook 'dired-after-readin-hook
+               (lambda ()
+                 (when (string-match-p ,name (dired-current-directory))
+                   ,@body)))))
+
+(project-specifics "projects/zombietdd"
+  (set (make-local-variable 'slime-js-target-url) "http://localhost:3000/")
+  (ffip-local-patterns "*.js" "*.jade" "*.css" "*.json" "*.md"))
+
+
+
+* Remember
+To test this config try out
+
+emacs  -q -l  init.el   --eval "(run-hooks 'after-init-hook)"
+
+
