@@ -1,4 +1,12 @@
 * 2015 Absolute Emacs config called /Calipso/
+
+* Check dependencies
+#+begin_src emacs-lisp
+;; company-0.8.7 is autocomplete
+(starter-kit-install-if-needed 'company 'ioccur 'js2-mode)
+#+end_src
+
+* Minimalist setup
 #+name: jj-config
 #+begin_src emacs-lisp
 (message "giorgig.org loading...")
@@ -29,9 +37,14 @@ Review:
 
 
 
+
+
 * Remember
 To test this config try out
 
 emacs  -q -l  init.el   --eval "(run-hooks 'after-init-hook)"
+
+Config git with
+git config --local core.autocrlf no
 
 
