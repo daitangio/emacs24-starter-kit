@@ -1,0 +1,59 @@
+ Very basic macosx keybindings AND erlang local setup
+#+begin_src emacs-lisp
+
+;; -*- coding: utf-8-emacs -*-
+(message "MacOSX Anakin...")
+;; Fix a pair of quirks on macosx keyboard. 
+;; Ref http://xahlee.org/emacs/keyboard_shortcuts.html
+;; Benefit: Alt-x is equal to M-x so Alt-x enable minibuffer command mode 
+(global-set-key (kbd "M-à") "#" )
+(global-set-key (kbd "M-ò") "@" )
+(global-set-key (kbd "M-è") "[" )
+;; Alt-shift on mac for { 
+(global-set-key (kbd "M-é") "{" )
+;; M-* is normally bound to pop-tag-mark, we remap to }
+(global-set-key (kbd "M-*") "}" )
+(global-set-key (kbd "M-+") "]" )
+;; Optional but useful:
+(global-set-key (kbd "M-e") "€" )
+;;; Fixer  (global-unset-key (kbd "C-_"))
+
+;; Remap common unused keys lik ° and §
+(global-set-key (kbd "°") (kbd "`"))
+(global-set-key (kbd "§") (kbd "~"))
+
+
+;; GG 201205 Erlang mode rocks 
+;; See http://www.erlang.org/doc/apps/tools/erlang_mode_chapter.html
+(setq load-path (cons  "/opt/local/lib/erlang/lib/tools-2.6.6.6/emacs"
+		       load-path))
+;(setq erlang-root-dir "/usr/local/otp")
+;(setq exec-path (cons "/usr/local/otp/bin" exec-path))
+;(require 'erlang-start)
+
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  ;; GG Pushed height to 145 for better look 
+ '(default ((t (:inherit nil :stipple nil :background "White" :foreground "Black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 145 :width normal :foundry "apple" :family "Monaco")))))
+
+#+end_src
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(display-time-mode t)
+ '(gnuplot-program "/opt/local/bin/gnuplot")
+ '(ispell-program-name "/opt/local/bin/aspell")
+ '(safe-local-variable-values (quote ((minor-mode . visual-line) (major-mode . org-mode))))
+ '(tool-bar-mode nil)
+ '(weblogger-config-alist (quote (("gioorgi" "https://gioorgi.com/xmlrpc.php" "daitangio" "" "1")))))
+
+
+
+(put 'downcase-region 'disabled nil)
+
