@@ -2,8 +2,19 @@
 
 * Check dependencies
 #+begin_src emacs-lisp
-;; company-0.8.7 is autocomplete
-(starter-kit-install-if-needed 'company 'ioccur 'js2-mode)
+  ;; company-0.8.7 is autocomplete
+  (starter-kit-install-if-needed 'company 'ioccur 'js2-mode 'elnode)
+  (starter-kit-install-if-needed 'groovy-mode)
+  ; How to force vers 4?
+  (starter-kit-install-if-needed 'clojure-mode) 
+
+  ;; Expand region
+  (starter-kit-install-if-needed 'expand-region)
+  (require 'expand-region)
+  (global-set-key [f2] 'er/expand-region)
+  ;; manual add for the meantime
+  ;;(add-to-list "~/emacs.d/jj-zencoding")
+  ;;(require 'zencoding-mode)      
 #+end_src
 
 * Minimalist setup
@@ -13,10 +24,30 @@
 (server-start)
 (cua-mode)
 (global-set-key [f1] 'query-replace-regexp)
-(starter-kit-load "js")
-(starter-kit-load "org")
-(message "giorgig.org DONE")
+;; TODO custom bindings of
+;; execute-extended-command bound to C-p
+;; ?? (global-set-key [C-p] 'execute-extended-command)
+;; kill-rectangle --- F4
+
 #+end_src
+
+Get Middle mouse clipboard unified. DOES NOT WORK
+DISABLED
+SEE
+http://stackoverflow.com/questions/13036155/how-to-to-combine-emacs-primary-clipboard-copy-and-paste-behavior-on-ms-windows
+Also save history: see 
+http://stackoverflow.com/questions/27396075/emacs-remembering-compilation-command-and-directory
+
++name: jj-config-mouse
++begin_src emacs-lisp
+(global-set-key [mouse-2] 'mouse-yank-at-click)
+
+(require 'savehist)
+(savehist-mode 1)
+(setq history-length 1000)
+
+(message "giorgig.org DONE")
++end_src
 
 Review:
 (defmacro project-specifics (name &rest body)
@@ -38,7 +69,7 @@ Review:
 
 
 
-
+  
 * Remember
 To test this config try out
 
