@@ -74,8 +74,9 @@ evaluated a theme is activated using the =load-theme= function.
 
 ** ido mode
 ido-mode is like magic pixie dust!
+GG DISABLED IT
 #+srcname: starter-kit-loves-ido-mode
-#+begin_src emacs-lisp 
+DISABLED #+begin_src emacs-lisp 
 (when (> emacs-major-version 21)
   (ido-mode t)
   (setq ido-enable-prefix nil
@@ -83,7 +84,7 @@ ido-mode is like magic pixie dust!
         ido-create-new-buffer 'always
         ido-use-filename-at-point t
         ido-max-prospects 10))
-#+end_src
+DISABLED #+end_src
 
 ** Other, spell checking, tabs, imenu and a coding hook
 #+begin_src emacs-lisp 
