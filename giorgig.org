@@ -17,7 +17,7 @@
   ;;(require 'zencoding-mode)      
 #+end_src
 
-* Minimalist setup
+* Minimalist setup  
 #+name: jj-config
 #+begin_src emacs-lisp
 (message "giorgig.org loading...")
@@ -31,23 +31,17 @@
 
 #+end_src
 
-Get Middle mouse clipboard unified. DOES NOT WORK
-DISABLED
-SEE
-http://stackoverflow.com/questions/13036155/how-to-to-combine-emacs-primary-clipboard-copy-and-paste-behavior-on-ms-windows
-Also save history: see 
-http://stackoverflow.com/questions/27396075/emacs-remembering-compilation-command-and-directory
+Get Middle mouse clipboard unified. 
 
-+name: jj-config-mouse
-+begin_src emacs-lisp
+See http://stackoverflow.com/questions/13036155/how-to-combine-emacs-primary-clipboard-copy-and-paste-behavior-on-ms-windows
+#+name: mouse-jj-2016
+#+BEGIN_SRC emacs-lisp
+(setq select-active-regions nil)
+(setq mouse-drag-copy-region t)
 (global-set-key [mouse-2] 'mouse-yank-at-click)
+(message "giorgig.org CLIP DONE")
+#+END_SRC
 
-(require 'savehist)
-(savehist-mode 1)
-(setq history-length 1000)
-
-(message "giorgig.org DONE")
-+end_src
 
 Review:
 (defmacro project-specifics (name &rest body)
@@ -69,7 +63,71 @@ Review:
 
 
 
+
+
+* XML Formatting
+#+name: jj-xml-util
+#+begin_src emacs-lisp
+;; Credits http://blog.bookworm.at/2007/03/pretty-print-xml-with-emacs.html
+(defun bf-pretty-print-xml-region (begin end)
+  "Pretty format XML markup in region. You need to have nxml-mode
+http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
+this.  The function inserts linebreaks to separate tags that have
+nothing but whitespace between them.  It then indents the markup
+by using nxml's indentation rules."
+  (interactive "r")
+  (save-excursion
+      (nxml-mode)
+      (goto-char begin)
+      (while (search-forward-regexp "\>[ \\t]*\<" nil t) 
+        (backward-char) (insert "\n"))
+      (indent-region begin end))
+    (message "Ah, much better!"))
   
+#+end_src
+
+* String inflection
+#+name: jj-camelboys
+#+begin_src emacs-lisp
+(starter-kit-install-if-needed 'string-inflection)
+(require 'string-inflection)
+(global-set-key [f12] 'string-inflection-java-style-cycle)
+#+end_src
+
+* Search replace replacerfool
+#+name: jj-replacerfool
+#+BEGIN_SRC emacs-lisp
+  (defun jj/replacexsd ()
+   (interactive)
+   (while (re-search-forward ".*element name=\"\\(.*\\)\" .*type=\"\\(.*\\)\" .*" nil t)
+      (replace-match "\\1;;;\\2;")))
+
+  (defun jj/xsdexpand ()
+    (interactive)
+      (query-replace-regexp "\\([a-zA-Z0-9]+\\)" "<element name=\"\\1\" type=\"string\" minOccurs=\"0\"/>"))
+
+; Keyboard macro
+(fset 'camel2db
+   [?\C-s ?T ?E f12 f12 down])
+
+#+END_SRC
+* PROXY ICBPI
+
+#+BEGIN_SRC emacs-lisp
+
+(defun jj/icbpi-proxy ()
+(interactive)
+(setq url-proxy-services
+   '(("no_proxy" . "^\\(localhost\\|10.*\\)")
+     ("http" . "172.26.251.178:8080")
+     ("https" . "172.26.251.178:8080")))
+
+(setq url-http-proxy-basic-auth-storage
+    (list (list "172.26.251.178:8080"
+                (cons "Input your LDAP UID !"
+                      (base64-encode-string "adhol01\\giorgi:Password1974"))))))
+#+END_SRC
+
 * Remember
 To test this config try out
 
@@ -79,3 +137,17 @@ Config git with
 git config --local core.autocrlf no
 
 
+
+
+* Trump + bash (work only launching from bash)
+
+to use /jenkins@10.98.255.4:/srv/deploy/
+#+begin_src emacs-lisp
+(setq tramp-default-method "sshx")
+#+end_src
+
+* DARK THEME
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'dracula t)
+#+END_SRC
