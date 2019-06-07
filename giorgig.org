@@ -151,3 +151,13 @@ to use /jenkins@10.98.255.4:/srv/deploy/
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'dracula t)
 #+END_SRC
+
+* To load org mode
+To load org mode, please set ORG_HOME environment variable
+It is easier and nicer
+#+BEGIN_SRC emacs-lisp
+(message (concat "ORG_HOME = " (getenv "ORG_HOME")))
+#+END_SRC
+
+#+RESULTS:
+: ORG_HOME = C:\Users\giorgig\.emacs.d\org-mode-jj
