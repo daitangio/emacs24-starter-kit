@@ -137,6 +137,23 @@ Config git with
 git config --local core.autocrlf no
 
 
+* Multiple cursor
+
+# <(Hyperbole test button)>
+
+#+begin_src emacs-lisp
+; See https://github.com/magnars/multiple-cursors.el
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+; When you want to add multiple cursors not based on continuous lines, but based on keywords in the buffer, use:
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(message "Multiple cursor ok")
+#+end_src
+
+#+RESULTS:
+: mc/mark-all-like-this
+
 
 
 * Trump + bash (work only launching from bash)
